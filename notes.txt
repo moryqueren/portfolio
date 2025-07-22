@@ -1,0 +1,22 @@
+Page: **Home**
+ - Navbar
+ - Hero Header Section: Brief introduction and welcoming message with a call-to-action to learn more about the junior IT girl.
+ - Features List Section: Highlights of key skills: Backend Development, APK Mobile Development, Desktop Application Development.
+ - Benefits Section: Benefits of hiring the junior IT girl such as reliability, expertise in backend, and experience in mobile and desktop development.
+ - Testimonial Section: Quotes from satisfied clients or mentors to build credibility.
+ - CTA Section: Encourage visitors to check out the Portfolio or Contact for more information.
+ - Footer
+
+Sub-pages: About Me, Portfolio, Contact
+
+
+Page: **About Me**
+
+Page: **Portfolio**
+
+Sub-pages: Project
+
+
+Page: **Project**
+
+Page: **Contact**

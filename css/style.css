@@ -1,0 +1,40 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Empêche le défilement si le contenu est plus petit que la fenêtre */
+}
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place le canevas derrière le contenu */
+  background-color: #000; /* Fond noir pour l'animation */
+}
+
+.nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition:all 1.5s;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  a {
+  text-decoration: none;
+}

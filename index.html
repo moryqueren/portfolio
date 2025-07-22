@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./icon/profile-user.png" type="image/x-icon">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/globals.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom gradient background animation */
+        /* .gradient-bg {
+            background: linear-gradient(45deg, #f3f4f6, #d1d5db, #9ca3af);
+            background-size: 300% 300%;
+            animation: gradient 4s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        } */
+
+        /* Reveal animations
+        .reveal, .reveal-left, .reveal-bottom, .reveal-right {
+            opacity: 0;
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-left {
+            transform: translateX(-100px);
+        }
+        .reveal-bottom {
+            transform: translateY(50px);
+        }
+        .reveal-right {
+            transform: translateX(100px);
+        }
+        .reveal.active, .reveal-left.active, .reveal-bottom.active, .reveal-right.active {
+            opacity: 1;
+            transform: translate(0, 0);
+        } */
+    </style>
+</head>
+<body class="font-sans antialiased bg-black text-white">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="mailto:querenmory@gmail.com" class="text-xl font-bold text-white">querenmory@gmail.com</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-gray-400 transition-colors">Home</a>
+                    <a href="#courses" class="nav-link text-white hover:text-gray-400 transition-colors">Courses</a>
+                    <a href="#projects" class="nav-link text-white hover:text-gray-400 transition-colors">Projects</a>
+                    <a href="#about" class="nav-link text-white hover:text-gray-400 transition-colors">About me</a>
+                    <a href="#contact" class="nav-link text-white hover:text-gray-400 transition-colors">Contact</a>
+                </div>
+                <a href="#hire" class="gradient-bg text-black font-bold px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">Hire me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Canvas pour l'animation de fond -->
+    <canvas id="background-canvas" aria-hidden="true" class="fixed inset-0 z-0 w-full h-full"></canvas>
+
+    <!-- Section principale avec l'image et le texte -->
+    <section id="home" class="flex flex-col md:flex-row min-h-screen bg-transparent text-white pt-16 md:pt-0 z-10 relative">
+        <!-- Moitié gauche: Image -->
+        <div class="relative w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center overflow-hidden">
+            <div class="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden mt-20">
+                <img
+                    src="./img/photo.jpeg"
+                    alt="Professionnelle DevOps prenant un selfie"
+                    class="absolute inset-0 w-full h-full object-cover object-center bg-transparent"
+                />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div> <!-- Superposition subtile -->
+        </div>
+        <!-- Moitié droite: Contenu textuel -->
+        <div class="flex flex-col justify-center items-center md:items-start w-full md:w-1/2 p-8 text-center md:text-left md:pl-16 mt-10 md:mt-0">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">Hello! Welcome to my Portfolio, i'm a <span class="text-gray-600">Devops.</span></h1>
+            <p class="text-lg md:text-xl mb-6">
+                "Your vision + My DevOps Expertise = Faster, Smarter, Reliable Software Delivery"
+            </p>
+            <button class="px-6 py-3 bg-white text-gray-900 rounded-md text-lg font-semibold hover:bg-gray-200 transition-colors shadow-lg">
+                contact me
+            </button>
+        </div>
+    </section>
+
+    <!-- section 2 PROJETS -->
+    <section id="projects" class="py-16 px-4 md:px-20 text-white z-10 relative">
+        <h2 class="text-5xl font-bold text-center mb-12">Projects</h2>
+        <div id="contproject" class="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <div class="box reveal-left bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">On GitHub</h3>
+                <p class="text-gray-300">I've created some projects like my school's Portfolio, games with python like snake game and Mario kart</p>
+            </div>
+            <div class="box reveal-bottom bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">On Vercel</h3>
+                <p class="text-gray-300">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla aliquam inventore expedita quos dolore ad beatae perferendis! Ipsa, ratione nihil.</p>
+            </div>
+            <div class="box reveal-right bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">On School</h3>
+                <p class="text-gray-300">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla aliquam inventore expedita quos dolore ad beatae perferendis! Ipsa, ratione nihil.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- section 3 COURSES (renamed from COMPETENCES to match nav) -->
+    <section id="courses" class="py-16 px-4 md:px-20 text-white z-10 relative">
+        <h2 class="text-5xl font-bold text-center mb-12">Courses</h2>
+        <div id="contproject" class="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <div class="box reveal-left bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">Course 1 Title</h3>
+                <p class="text-gray-300">Description of the first course or skill set. This could be about a specific technology or methodology.</p>
+            </div>
+            <div class="box reveal-bottom bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">Course 2 Title</h3>
+                <p class="text-gray-300">Details about another course or area of expertise. Highlight key learnings or projects from it.</p>
+            </div>
+            <div class="box reveal-right bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">Course 3 Title</h3>
+                <p class="text-gray-300">Information on a third course, perhaps focusing on a different aspect of DevOps or development.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- section 4 ABOUT ME (renamed from A PROPOS to match nav) -->
+    <section id="about" class="py-16 px-4 md:px-20 text-white z-10 relative">
+        <h2 class="text-5xl font-bold text-center mb-12">About Me</h2>
+        <div id="contproject" class="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <div class="box reveal-left bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">My Journey</h3>
+                <p class="text-gray-300">A brief overview of my professional journey and how I became a DevOps professional.</p>
+            </div>
+            <div class="box reveal-bottom bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">Philosophy</h3>
+                <p class="text-gray-300">My approach to software development, automation, and continuous improvement.</p>
+            </div>
+            <div class="box reveal-right bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <h3 class="text-3xl font-bold mb-2">Interests</h3>
+                <p class="text-gray-300">Beyond work, what drives me? Hobbies, personal projects, or learning new things.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-gray-800 mx-4 md:mx-20 z-10 relative">
+
+    <!-- section 5 CONTACTS ou FOOTER -->
+    <footer id="contact" class="text-white py-16 z-10 relative">
+        <div id="contfoot" class="flex flex-col md:flex-row p-4 md:p-20 gap-8 justify-around items-start">
+            <div class="foot flex-1 min-w-[200px]">
+                <p>Tel : +261 34 69 562 09</p>
+                <p>Email : <a href="mailto:querenmory@gmail.com" class="hover:underline">querenmory@gmail.com</a></p>
+                <p>Lorem ipsum dolor sit amet con</p>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatum deleniti nulla perferendis quidem modi repudiandae tempore ratione, perspiciatis ad.</p>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, pariatur! Voluptates iure deserunt natus ipsum qui alias eius omnis aspernatur, sint quis voluptatibus temporibus accusantium necessitatibus placeat dicta aliquam vitae.</p>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, pariatur! Voluptates iure deserunt natus ipsum qui alias eius omnis aspernatur, sint quis voluptatibus temporibus accusantium necessitatibus placeat dicta aliquam vitae.</p>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="p-3 mt-5 text-center border-t border-gray-800 pt-8">
+            <span>© 2025 Copyright:</span>
+            <a class="text-white hover:underline" href="#">Quéren</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript files -->
+    <script src="./scripts/background-animation.js"></script>
+    <script src="./scripts/reveal-animation.js"></script>
+</body>
+</html>
