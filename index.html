@@ -40,13 +40,68 @@
             opacity: 1;
             transform: translate(0, 0);
         } */
+
+        
+        /* Styles personnalisés pour l'animation de révélation */
+        .box {
+            transition: all 1s ease-out; /* Transition pour l'animation de révélation */
+            opacity: 0;
+        }
+
+        /* Animations spécifiques pour chaque direction */
+        .box.reveal-left {
+            transform: translateX(-50px) rotate(-5deg);
+        }
+        .box.reveal-bottom {
+            transform: translateY(50px) rotate(5deg);
+        }
+        .box.reveal-right {
+            transform: translateX(50px) rotate(5deg);
+        }
+
+        /* État révélé */
+        .box.is-revealed {
+            opacity: 1;
+            transform: translateX(0) translateY(0) rotate(0);
+        }
+                /* Styles pour l'animation au survol (hover) */
+        /* Appliqués via Tailwind, mais ici pour référence si besoin de plus de contrôle */
+        .box.hover-effect {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .box.hover-effect:hover {
+            transform: translateY(-8px) scale(1.03); /* Soulève et agrandit légèrement */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée */
+        }
+             /* Style pour le bouton "Hire me" */
+             .gradient-bg {
+            background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 100%); /* Exemple de dégradé */
+        }
+        .gradient-bg:hover {
+            background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%); /* Dégradé au survol */
+        }
+
+        /* Animation d'entrée/sortie pour le menu mobile */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateX(100%); /* Commence hors de l'écran à droite */
+        }
+        .mobile-menu-overlay.is-open {
+            opacity: 1;
+            transform: translateX(0); /* Glisse en place */
+        }
     </style>
 </head>
 <body class="font-sans antialiased bg-black text-white">
+    
+    <!-- Barre de navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-md border-b border-gray-800">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <a href="mailto:querenmory@gmail.com" class="text-xl font-bold text-white">querenmory@gmail.com</a>
+                
+                <!-- Liens de navigation pour grand écran -->
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="nav-link text-white hover:text-gray-400 transition-colors">Home</a>
                     <a href="#courses" class="nav-link text-white hover:text-gray-400 transition-colors">Courses</a>
@@ -54,10 +109,36 @@
                     <a href="#about" class="nav-link text-white hover:text-gray-400 transition-colors">About me</a>
                     <a href="#contact" class="nav-link text-white hover:text-gray-400 transition-colors">Contact</a>
                 </div>
-                <a href="#hire" class="gradient-bg text-black font-bold px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">Hire me</a>
+                
+                <!-- Bouton "Hire me" pour grand écran -->
+                <a href="#hire" class="hidden md:block bg-gray-200 text-black font-bold px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">Hire me</a>
+
+                <!-- Bouton du menu burger pour mobile -->
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Overlay du menu mobile -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 text-xl">
+        <a href="#home" class="nav-link text-white hover:text-gray-400 transition-colors" data-close-menu>Home</a>
+        <a href="#courses" class="nav-link text-white hover:text-gray-400 transition-colors" data-close-menu>Courses</a>
+        <a href="#projects" class="nav-link text-white hover:text-gray-400 transition-colors" data-close-menu>Projects</a>
+        <a href="#about" class="nav-link text-white hover:text-gray-400 transition-colors" data-close-menu>About me</a>
+        <a href="#contact" class="nav-link text-white hover:text-gray-400 transition-colors" data-close-menu>Contact</a>
+        <a href="#hire" class="bg-gray-200 text-black font-bold px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">Hire me</a>
+        
+        <!-- Bouton de fermeture du menu mobile -->
+        <button id="close-mobile-menu" class="absolute top-4 right-4 text-white focus:outline-none">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
 
     <!-- Canvas pour l'animation de fond -->
     <canvas id="background-canvas" aria-hidden="true" class="fixed inset-0 z-0 w-full h-full"></canvas>
@@ -87,43 +168,65 @@
         </div>
     </section>
 
+    <hr class="p-20">
+
     <!-- section 2 PROJETS -->
     <section id="projects" class="py-16 px-4 md:px-20 text-white z-10 relative">
         <h2 class="text-5xl font-bold text-center mb-12">Projects</h2>
         <div id="contproject" class="flex flex-col md:flex-row gap-8 justify-center items-center">
-            <div class="box reveal-left bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">On GitHub</h3>
-                <p class="text-gray-300">I've created some projects like my school's Portfolio, games with python like snake game and Mario kart</p>
+            <div class="box reveal-left bg-gray-900 p-10 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
+                <div class="col-lg-4 col-md-6 mb-4 rounded-full">
+                    <a href="#" class="card-link">
+                        <div class="card">
+                            <img src="./img/photo.jpeg" alt="" class="w-auto h-50">
+                            <div class="intro-card">
+                                <h1 class="text-5xl">Tily</h1>
+                                <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus alias voluptatum hic incidunt dignissimos sapiente velit debitis, eum dolor natus.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="box reveal-bottom bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">On Vercel</h3>
+                <h3 class="text-3xl font-bold mb-2">Duo Learn</h3>
                 <p class="text-gray-300">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla aliquam inventore expedita quos dolore ad beatae perferendis! Ipsa, ratione nihil.</p>
             </div>
             <div class="box reveal-right bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">On School</h3>
+                <h3 class="text-3xl font-bold mb-2">GE-IT</h3>
                 <p class="text-gray-300">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla aliquam inventore expedita quos dolore ad beatae perferendis! Ipsa, ratione nihil.</p>
             </div>
         </div>
     </section>
 
+    <hr class="p-20">
+
     <!-- section 3 COURSES (renamed from COMPETENCES to match nav) -->
-    <section id="courses" class="py-16 px-4 md:px-20 text-white z-10 relative">
+    <section id="courses" class="py-16 px-4 md:px-20 text-white z-10 relative w-full max-w-6xl mx-auto">
         <h2 class="text-5xl font-bold text-center mb-12">Courses</h2>
         <div id="contproject" class="flex flex-col md:flex-row gap-8 justify-center items-center">
-            <div class="box reveal-left bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">Course 1 Title</h3>
-                <p class="text-gray-300">Description of the first course or skill set. This could be about a specific technology or methodology.</p>
+            <!-- Box 1: Révélation depuis la gauche et effet de survol -->
+            <div class="box reveal-left bg-gray-900 p-10 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm cursor-pointer
+                        transition-all duration-300 ease-in-out hover:scale-[1.03] hover:-translate-y-2 hover:shadow-xl" data-delay="0">
+                <h3 class="text-3xl font-bold mb-2">2023</h3>
+                <p class="text-gray-300">Obtained Scientific Baccalaureate (serie D) and achieved Delf B2 French language certification from Alliance Française.</p>
             </div>
-            <div class="box reveal-bottom bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">Course 2 Title</h3>
-                <p class="text-gray-300">Details about another course or area of expertise. Highlight key learnings or projects from it.</p>
+            <!-- Box 2: Révélation depuis le bas et effet de survol -->
+            <div class="box reveal-bottom bg-gray-900 p-10 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm cursor-pointer
+                        transition-all duration-300 ease-in-out hover:scale-[1.03] hover:-translate-y-2 hover:shadow-xl" data-delay="200">
+                <h3 class="text-3xl font-bold mb-2">2023-2024</h3>
+                <p class="text-gray-300">completed my first year (L1) of university studies in computer science at Ecole Nationale d'Informatique(ENI) in Toliara, Madagascar.</p>
             </div>
-            <div class="box reveal-right bg-gray-900 p-6 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm">
-                <h3 class="text-3xl font-bold mb-2">Course 3 Title</h3>
-                <p class="text-gray-300">Information on a third course, perhaps focusing on a different aspect of DevOps or development.</p>
+            <!-- Box 3: Révélation depuis la droite et effet de survol -->
+            <div class="box reveal-right bg-gray-900 p-10 rounded-lg shadow-lg flex-1 min-w-[280px] max-w-sm cursor-pointer
+                        transition-all duration-300 ease-in-out hover:scale-[1.03] hover:-translate-y-2 hover:shadow-xl" data-delay="400">
+                <h3 class="text-3xl font-bold mb-2">2024-2025</h3>
+                <p class="text-gray-300">Relocated to Antananarivo and restardted my L1 studies at GE-IT university to pursue computer science education</p>
             </div>
         </div>
     </section>
+
+    <hr class="p-20">
+
 
     <!-- section 4 ABOUT ME (renamed from A PROPOS to match nav) -->
     <section id="about" class="py-16 px-4 md:px-20 text-white z-10 relative">
@@ -144,7 +247,7 @@
         </div>
     </section>
 
-    <hr class="border-gray-800 mx-4 md:mx-20 z-10 relative">
+    <hr class="p-20">
 
     <!-- section 5 CONTACTS ou FOOTER -->
     <footer id="contact" class="text-white py-16 z-10 relative">
@@ -174,5 +277,58 @@
     <!-- JavaScript files -->
     <script src="./scripts/background-animation.js"></script>
     <script src="./scripts/reveal-animation.js"></script>
+    <script src="./scripts/tailwind.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  const boxes = document.querySelectorAll(".box")
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = Number.parseInt(entry.target.dataset.delay || "0")
+          setTimeout(() => {
+            entry.target.classList.add("is-revealed")
+          }, delay)
+          observer.unobserve(entry.target) // Arrête d'observer une fois révélé
+        }
+      })
+    },
+    {
+      threshold: 0.1, // Déclenche quand 10% de l'élément est visible
+      rootMargin: "0px 0px -50px 0px", // Déclenche un peu plus tôt
+    },
+  )
+
+  boxes.forEach((box) => {
+    observer.observe(box)
+  })
+  
+  // --- Nouveau code pour le menu de navigation responsive ---
+  const mobileMenuButton = document.getElementById("mobile-menu-button")
+  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay")
+  const closeMobileMenuButton = document.getElementById("close-mobile-menu")
+  const mobileMenuLinks = mobileMenuOverlay.querySelectorAll("a[data-close-menu]")
+
+  function toggleMobileMenu() {
+    mobileMenuOverlay.classList.toggle("is-open") // Utilise la classe pour l'animation CSS
+    // Empêche le défilement du corps lorsque le menu est ouvert
+    document.body.classList.toggle("overflow-hidden")
+  }
+
+  // Ouvre le menu
+  mobileMenuButton.addEventListener("click", toggleMobileMenu)
+
+  // Ferme le menu via le bouton de fermeture
+  closeMobileMenuButton.addEventListener("click", toggleMobileMenu)
+
+  // Ferme le menu lorsque l'on clique sur un lien
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener("click", toggleMobileMenu)
+  })
+})
+
+    </script>
 </body>
 </html>

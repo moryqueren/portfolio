@@ -1,4 +1,6 @@
-
+html{
+  scroll-behavior: smooth;
+}
 .nav-link {
     color: #ffffff;
     font-weight: 500;
@@ -23,4 +25,34 @@
   }
   a {
   text-decoration: none;
+}
+
+
+.card:hover .intro-card {
+  height: 130px;
+}
+
+.intro-card {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgba(27, 27, 27, .5);
+  color: white;
+  transition: height 0.5s;
+}
+
+.intro-card h1 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.intro-card p {
+  margin: 10px 0;
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
